@@ -1,0 +1,262 @@
+
+
+
+<link href="{:CS_PATH}pintuer.css" rel="stylesheet" type="text/css" />
+<link href="{:CS_PATH}fangcms.css" rel="stylesheet" type="text/css" />
+<script src="{:JS_PATH}jquery.min.js" type="text/javascript"></script>
+<script src="{:JS_PATH}pintuer.js" type="text/javascript"></script>
+<script src="{:JS_PATH}/lib/layer/layer.js" type="text/javascript"></script>
+
+
+
+
+
+<div class="fangcms_box">
+	<form method="post">
+		<div class="form-group">
+			<div class="label">
+				<label for="title">
+					节点名称:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="title" name="title" size="50" placeholder="节点名称" />
+			</div>
+		</div>
+
+	    <div class="form-group">
+			<div class="label">
+				<label for="name">
+					节点模型:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="name" name="name" size="50" placeholder="节点模型:Admin/Index/index(模块/控制器/方法)" />
+			</div>
+		</div>
+
+		 <div class="form-group">
+			<div class="label">
+				<label for="sort">
+					节点排序:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="sort" name="sort" size="50" placeholder="排序" />
+			</div>
+		</div>
+		
+
+	
+		<div class="form-group">
+			<div class="label">
+				<label for="pid">
+					上级节点</label>
+			</div>
+			<div class="field">
+				<select class="input" name="pid">
+				<option value="">请选择</option>
+				<option value="0">根节点</option>
+				 <volist name="nodes" id="vo">
+                 
+				  <option value="{$vo.id}" <if condition="$info.pid eq $vo.id ">selected</if>>{$vo.fullname}</option>
+
+				  </volist>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="label">
+				<label for="icon"> 
+					节点图标:&nbsp;&nbsp;<span  id="icon_img"></span><font color="red" style="font-size:10px;">[*适用于顶级节点]</font></label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="icon" name="icon" size="50" placeholder="图标" />
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="label">
+				<strong>状态</strong>
+			</div>
+			<div class="field">
+				<div class="button-group radio">
+					<label class="button active">
+						<input name="status" value="1" checked="checked" type="radio"><span class="icon icon-check text-green"></span> 开启
+					</label>
+					<label class="button">
+						<input name="status" value="0" type="radio"><span class="icon icon-times"></span> 关闭
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="label">
+				<label for="condition">
+					节点描述</label>
+			</div>
+			<div class="field">
+				<textarea class="input" rows="5" cols="50" placeholder="节点描述" name="condition"></textarea>
+			</div>
+		</div>
+		<div class="form-button">
+			<button class="button" type="button" onclick="add()">
+				提交</button>
+		</div>
+	</form>
+</div>
+ <script>
+
+ $("input[name ='icon']").click(function(){
+  var url  = '{:U('Node/icons')}';   
+  layer.open({
+                type: 2,
+                area: ['850px', '560px'],
+                offset:'0px',
+                scrollbar: false,
+                fix: true, //不固定
+                maxmin: true,
+                title:'选择图标',
+                content: url
+            });
+});
+
+	  //创建节点
+
+		function add(){
+
+			
+
+			var title=$("input[name='title']");
+
+			var name=$("input[name='name']");
+
+			var sort=$("input[name='sort']");
+
+			var pid=$("select[name='pid']");
+
+			var status = $("input[name='status']:checked");	
+
+		    var condition=$("textarea[name='condition']");	
+
+		    var icon=$("input[name='icon']");
+
+
+
+
+
+			if(title.val()==''){
+
+				layer.tips('必填*', title);
+
+				title.focus();
+
+				return false
+
+			}
+
+
+
+			if(name.val()==''){
+
+				layer.tips('必填*', name);
+
+				name.focus();
+
+				return false
+
+			}
+
+			if (pid.val()=='') {
+				layer.tips('必选*', pid);
+
+				pid.focus();
+
+				return false
+
+			}
+
+			if (status.val()=='') {
+
+				layer.tips('必填*', status);
+
+				status.focus();
+
+				return false
+
+			}
+
+			if (condition.val()=='') {
+				layer.tips('必填*', condition);
+
+				condition.focus();
+
+				return false
+
+			}
+
+
+            $('.button').attr("disabled","disabled");//防止重复提交
+
+
+			$.post("{:U('Node/add')}",{
+
+				name:name.val(),
+
+				title:title.val(),
+
+				sort:sort.val(),
+
+				status:status.val(),
+
+				condition:condition.val(),
+
+				pid:pid.val(),
+
+				icon:icon.val(),
+
+
+			},function(ret){
+
+				// alert(ret);
+
+				if(ret.status==1){
+					
+					 parent.layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 1,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					}, function(){
+						  parent.location.reload()
+					      parent.layer.closeAll()			
+
+					});   
+
+
+					
+					 
+
+				}else{
+
+					layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 2,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					});
+
+				}
+
+			})			
+
+		}
+
+		</script>
+

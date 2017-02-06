@@ -1,0 +1,11 @@
+
+<svg width="407px" height="507px" viewBox="-57 -15 407 507" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="24.8334099" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <rect id="Rectangle-5" stroke="none" fill="#F95F62" fill-rule="evenodd" filter="url(#filter-1)" x="17.9200708" y="60.3976287" width="256.854348" height="356.431076" rx="12"></rect>
+</svg>

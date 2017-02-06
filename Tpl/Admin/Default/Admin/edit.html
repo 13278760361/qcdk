@@ -1,0 +1,246 @@
+
+
+
+<link href="{:CS_PATH}pintuer.css" rel="stylesheet" type="text/css" />
+<link href="{:CS_PATH}fangcms.css" rel="stylesheet" type="text/css" />
+<script src="{:JS_PATH}jquery.min.js" type="text/javascript"></script>
+<script src="{:JS_PATH}pintuer.js" type="text/javascript"></script>
+<script src="{:JS_PATH}/lib/layer/layer.js" type="text/javascript"></script>
+
+
+
+
+
+<div class="fangcms_box">
+	<form method="post">
+		<div class="form-group">
+			<div class="label">
+				<label for="username">
+					账号:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="username" name="username" size="50" placeholder="账号" value="{$info.username}" />
+			</div>
+		</div>
+
+	    <div class="form-group">
+			<div class="label">
+				<label for="password">
+					密码:</label>
+			</div>
+			<div class="field">
+				<input type="password" class="input" id="password" name="password" size="50" placeholder="留空则不修改" />
+			</div>
+		</div>
+
+		   <div class="form-group">
+			<div class="label">
+				<label for="nickname">
+					昵称:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="nickname" name="nickname" size="50" placeholder="昵称" value="{$info.nickname}" />
+			</div>
+		</div>
+
+		 <div class="form-group">
+			<div class="label">
+				<label for="email">
+					邮箱:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="email" name="email" size="50" placeholder="邮箱" value="{$info.email}" />
+			</div>
+		</div>
+
+	
+		<div class="form-group">
+			<div class="label">
+				<label for="group_id">
+					用户组</label>
+			</div>
+			<div class="field">
+				<select class="input" name="group_id">
+				<!-- <option value="">请选择</option> -->
+				 <volist name="groups" id="vo">
+
+				  <option value="{$key}" <if condition="$info['group_id'] eq $key">selected</if>>{$vo}</option>
+
+				  </volist>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="label">
+				<strong>状态</strong>
+			</div>
+			<div class="field">
+				<div class="button-group radio">
+					<label class="button <if condition="$info['status'] eq 1"> active</if>">
+						<input name="status" value="1" checked="checked" type="radio" <if condition="$info['status'] eq 1">checked</if>><span class="icon icon-check text-green"></span> 启用
+					</label>
+					<label class="button <if condition="$info['status'] eq 0"> active</if>">
+						<input name="status" value="0" type="radio" <if condition="$info['status'] eq 0">checked</if>><span class="icon icon-times"></span> 禁用
+					</label>
+				</div>
+			</div>
+		</div>
+
+	
+		<div class="form-button">
+			<button class="button" type="button" onclick="edit()">
+				提交</button>
+		</div>
+	</form>
+</div>
+ <script>
+
+	  //创建节点
+
+		function edit(){
+
+			var id ={$info.id};
+
+			var username=$("input[name='username']");
+
+			var password=$("input[name='password']");
+
+			var nickname=$("input[name='nickname']");
+
+			var group_id=$("select[name='group_id']");
+
+			var status = $("input[name='status']:checked");	
+
+		    var email=$("input[name='email']");	
+
+
+
+
+
+			if(username.val()==''){
+
+				layer.tips('必填*', username);
+
+				title.focus();
+
+				return false
+
+			}
+
+
+
+			// if(password.val()==''){
+
+			// 	layer.tips('必填*', password);
+
+			// 	name.focus();
+
+			// 	return false
+
+			// }
+
+			if (nickname.val()=='') {
+				layer.tips('必填*', nickname);
+
+				nickname.focus();
+
+				return false
+
+			}
+
+			if (email.val()=='') {
+				layer.tips('必填*', email);
+
+				email.focus();
+
+				return false
+
+			}
+
+
+			if (group_id.val()=='') {
+				layer.tips('必选*', group_id);
+
+				group_id.focus();
+
+				return false
+
+			}
+
+			if (status.val()=='') {
+
+				layer.tips('必填*', status);
+
+				status.focus();
+
+				return false
+
+			}
+
+		
+
+
+            $('.button').attr("disabled","disabled");//防止重复提交
+
+
+			$.post("{:U('Admin/edit')}",{
+				id:id,
+
+				username:username.val(),
+
+				password:password.val(),
+
+				nickname:nickname.val(),
+
+				email:email.val(),
+
+				group_id:group_id.val(),
+
+				status:status.val(),
+
+
+			},function(ret){
+
+				// alert(ret);
+
+				if(ret.status==1){
+					
+					 parent.layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 1,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					}, function(){
+						  parent.location.reload()
+					      parent.layer.closeAll()			
+
+					});   
+
+
+					
+					 
+
+				}else{
+
+					layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 2,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					});
+
+				}
+
+			})			
+
+		}
+
+		</script>
+

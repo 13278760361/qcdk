@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>签到成功</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_success_bd">
+<div class="wrap">
+	<div class="set_success_h"></div>
+	<div class="sign_state">
+		<img src="{:IM_PATH}sign_success_img.png" />
+		<span>签到成功</span>
+	</div>
+	<div class="sign_name">
+		<span>{$info.username}</span>
+		<p>{$info.depart_name}</p>
+	</div>
+	
+</div>
+<span class="logo"></span>
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+</html>

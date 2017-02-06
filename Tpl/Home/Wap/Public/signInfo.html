@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>签到状态</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_state_bd">
+<div class="sign_state_spark">
+	<img src="{:IM_PATH}sign_state_spark.png" />
+</div>
+
+<div class="sign_state_cloud">
+	<img src="{:IM_PATH}sign_state_cloud.png" />
+	<div class="sign_state_text">
+		<div class="fl text">签到时间：</div>
+		<div class="fl time">
+		    <if condition="$start_time eq null">
+               <p>- -   - -</p>
+		    <else />
+                <p>{$start_time}</p>
+		    </if>
+
+			
+			<if condition="$end_time eq null">
+               <p>- -   - -</p>
+		    <else />
+                <p>{$end_time}</p>
+		    </if>
+		</div>
+	</div>
+</div>
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	//flag为签到状态标记，需要后台返回，true为火箭fly，false不进行动画
+	//var flag = true;
+	var flag = {$rocketStatus};
+	App.handleSparkFly(flag);
+})
+</script>
+</html>

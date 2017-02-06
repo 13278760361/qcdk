@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>详细信息</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_info_bd">
+	
+<!--查看工资情况-->
+<div class="sign_shadow">
+	<div class="sign_dialog" >
+		<div class="sign_info_box">
+			<div class="sib_tit"><a href='javascript:' onClick='history.back();'><i class="close"></i></a><span>{$date}</span></div>
+			<p>
+				<span>上班时间 : </span>
+				<b>{$start_time}</b>
+			</p>
+			<p>
+				<span>下班时间 : </span>
+				
+				<if condition="$reason neq null">
+				<em>{$reason}</em>
+				<elseif condition="$end_time eq '未打卡'"/>
+				<em>{$end_time}</em>
+				<else />
+				<b>{$end_time}</b>
+				</if>
+				
+			</p>
+			<if condition="$wages_status eq 0">
+				
+			<else / >
+			<div class="sign_info_btn "><a href="{:U('Sign/wages',array('clickTime'=>$clickTimes) )}">工资信息</a></div>
+			</if>
+		</div>
+		<div class="sign_info_month"><img src="{:CS_PATH}png/{$clickMonth}.png" /></div>
+	</div>
+</div>
+
+<!--查看打卡情况-->
+<!-- <div class="sign_shadow ">
+	<div class="sign_dialog" >
+		<div class="sign_info_box">
+			<div class="sib_tit"><i class="close"></i><span>2016 年 8 月 16 日</span></div>
+			<p>
+				<span>上班时间 : </span>
+				<b>08:44</b>
+			</p>
+			<p>
+				<span>下班时间 : </span>
+				<b>17:30</b>
+			</p>
+			<div class="sign_info_btn hide">工资信息</div>
+		</div>
+		<div class="sign_info_month"><img src="{:CS_PATH}png/8.png" /></div>
+	</div>
+</div> -->
+
+
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+</html>

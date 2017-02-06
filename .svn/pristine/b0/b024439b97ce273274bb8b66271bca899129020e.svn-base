@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>查找员工</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body>
+<form action="{:U('Contact/userSearch')}" method="post">
+<div class="search_box">
+	<input class="search_input" type="text" required="required" name="keyword" id="key" placeholder="搜索" value="{$keyword}" />
+	<input type="submit" value="提交" id="sub" style="display:none;"> 
+</div>
+</form>
+
+<div class="search_res">
+<volist name="lists" id="vo">
+	<a href="tel:{$vo.phone}">{$vo.username}</a>
+</volist>	
+</div>
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	//展开与收起
+	// App.handleAddressListToggle();
+
+	$("#key").change(function(){
+           $('#sub').click();
+	})
+})
+</script>
+</html>

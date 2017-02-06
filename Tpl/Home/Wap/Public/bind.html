@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>绑定资料</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body>
+<div class="wrap">
+	<div class="note">
+		<b>绑定</b>
+		<p>个人信息绑定后不可更改</p> 
+	</div>
+	<ul class="login">
+		<li>
+			<input type="text" name="" required="required" placeholder="姓名" info="username"/>
+		</li>
+		<li>
+			<!--<input type="text" required="required" placeholder="性别" />-->
+			<select name="" required="required" info="sex">
+				<option value="" disabled selected>性别</option>
+				<option value="1">男</option>
+				<option value="2">女</option>
+				<option value="0">保密</option>
+			</select>
+		</li>
+		<li>
+			<input type="number" name="" required="required" placeholder="电话" info="phone" />
+		</li>
+		<li>
+			<!--<input type="text" required="required" placeholder="部门" />-->
+			<select name="" required="required" info="depart_id">
+				<option value="" disabled selected>部门</option>
+				<volist name='departs' id="vo">
+				<option value="{$vo.id}">{$vo.depart_name}</option>
+				</volist>
+				
+			</select>
+		</li>
+	</ul>
+	<div class="bind_btn" poster="info" action="__SELF__"><!-- <input type="bottom" /> --></div>
+
+</div>
+<span class="logo"></span>
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}common.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/Admin/js/lib/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+</html>

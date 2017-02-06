@@ -1,0 +1,90 @@
+<include file="Public/header" />
+<!-- 包含头部模版header -->
+<link rel="stylesheet" href="{:CS_PATH}depart.css">
+<div class="admin">
+    <form method="get">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong>摇一摇场景列表</strong></div>
+            <div style="width:100%;" class="padding border-bottom form-inline">
+                <div style="float:left;" class="x16">
+                    <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
+                    <input type="button" class="button button-small border-green" value="添加场景" onclick="System.add('添加场景','{:U('RedEnvelopes/add')}')">
+                   <!-- <input type="button" class="button button-small border-blue UpdateOrder" value="更新排序"  />-->
+                    <input type="button" class="button button-small border-yellow" value="批量删除" onclick="getID('{:U('RedEnvelopes/del')}')" />
+                    <div class="clear"></div>
+                </div>
+                <div style="float:right;" class="x16">
+                    <div class="form-group">
+                        <div class="field">
+                            <input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="场景名称" value="{$keyword}">
+                        </div>
+                    </div>
+                    <!-- 筛选 -->
+                    <div class="form-button">
+                        <button class="button" type="submit" id="search">搜索</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <table class="table table-hover" id="table">
+                <tr>
+                    <th width="*">ID</th>
+                    <th width="*">场景名称</th>
+                    <!--<th width="*">创建时间</th>
+                    <th width="*">修改时间</th>
+                    <th width="*">排序</th>-->
+                    <th width="*">状态</th>
+                    <th width="*">操作</th>
+                </tr>
+
+                <volist name="lists" id="vo">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id" value="{$vo.id}"/>{$vo.id}
+                        </td>
+                        <td>{$vo.scene_name}</td>
+                       <!-- <td>{$vo.create_time|date="Y-m-d H:i",###}</td>
+                        <td>{$vo.update_time|date="Y-m-d H:i",###}</td>
+                        <td>
+                            <input type="text" class=" input text-center"  name="order[{$vo.id}]" value="{$vo.orders}">
+                        </td>-->
+                        <td>
+                            <if condition="$vo['status'] eq '1'">启用
+                                <else />禁用</if>
+                        </td>
+                        <td>
+                        <a class="button border-blue button-little" href="{:U('Prize/index',array('id'=>$vo['id']))}" >奖品列表</a>
+                        <a class="button border-blue button-little" href="#" onclick="System.edit('编辑场景','{:U('RedEnvelopes/edit',array('id'=>$vo['id']))}')">修改</a> <a class="button border-yellow button-little" href="#" onclick="System.del('{$vo.id}','{$vo.scene_name}','{:U('RedEnvelopes/del')}')">删除</a></td>
+                    </tr>
+                </volist>
+            </table>
+            <div class="panel-foot text-right" style="font-size:12px;">
+                {$page}
+            </div>
+        </div>
+    </form>
+    <br />
+    <include file="Public/footer" />
+    <!-- 包含底部部模版footer -->
+    <!-- <script>
+         $('.UpdateOrder').click(function(){
+             $.post("{:U('admin/Depart/order')}",
+             $('#table').find('input[type="text"].text-center').serialize(),
+             function(res){
+               if(res.status ==1){
+                   parent.layer.msg(res.info,{
+                               offset: 200,
+                               shift: 2,
+                               time: 800 //2秒关闭（如果不配置，默认是3秒）
+                   }, function(){
+                       parent.location.reload()
+                       parent.layer.closeAll()
+                   });
+               }
+             });
+         });
+    </script> -->
+</div>
+</body>
+
+</html>

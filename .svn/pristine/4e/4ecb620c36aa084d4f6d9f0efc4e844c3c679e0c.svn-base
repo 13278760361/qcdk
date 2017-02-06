@@ -1,0 +1,23 @@
+
+<svg width="293px" height="406px" viewBox="0 0 293 406" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="45.7506746%" y1="2.55791973%" x2="45.7506746%" y2="88.6270501%" id="linearGradient-1">
+            <stop stop-color="#FF3D7D" offset="0%"></stop>
+            <stop stop-color="#FFB561" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="292.69449" height="405.769984" rx="12"></rect>
+        <linearGradient x1="24.7690907%" y1="52.5778922%" x2="76.4008018%" y2="20.8596443%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" stop-opacity="0.05" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Path-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-3" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <use id="Mask" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+        <path d="M-24.3415955,-92.0883559 C-24.3415955,-59.7618261 93.396962,288.811559 315.462595,390.081415 C537.528229,491.351271 288.914807,-84.3278686 288.914807,-84.3278686 C288.914807,-84.3278686 -24.3415955,-124.414886 -24.3415955,-92.0883559 Z" fill="url(#linearGradient-4)" mask="url(#mask-3)" transform="translate(191.687457, 148.672111) rotate(-7.000000) translate(-191.687457, -148.672111) "></path>
+    </g>
+</svg>

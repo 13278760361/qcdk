@@ -1,0 +1,132 @@
+<?php if (!defined('THINK_PATH')) exit();?><link href="<?php echo CS_PATH;?>pintuer.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo CS_PATH;?>fangcms.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo JS_PATH;?>jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo JS_PATH;?>pintuer.js" type="text/javascript"></script>
+<script src="<?php echo JS_PATH;?>/lib/layer/layer.js" type="text/javascript"></script>
+
+<div class="fangcms_box">
+    <form method="post">
+        <div class="form-group">
+            <div class="label">
+                <label>
+                    工号:</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" id="job_number" name="job_number" size="50" placeholder="工号" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label >
+                    姓名:</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" id="username" name="username" size="50" placeholder="姓名" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label >
+                    姓别:</label>
+            </div>
+            <div class="field" style="font-size:16px; padding-left: 10px;">
+                <input type="radio"   name="sex" value="1" checked="checked"/>男
+                <input type="radio" style="margin-left: 20px;" name="sex" value="2"/>女
+                <input type="radio" style="margin-left: 20px;" name="sex" value="0"/>保密
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label >
+                    部门:</label>
+            </div>
+            <div class="field" id="depart_id">
+                <select name="depart_id" class="input" id="">
+                    <option value="0" >请选择</option>
+                    <?php if(is_array($departs)): $i = 0; $__LIST__ = $departs;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" ><?php echo ($vo["depart_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="label">
+                <label>
+                    电话:</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" id="phone" name="phone" size="50" placeholder="电话" />
+            </div>
+        </div>
+        <div class="form-button">
+            <button class="button" type="button" onclick="add()">
+                提交</button>
+        </div>
+    </form>
+</div>
+<script>
+    function add(){
+        var job_number = $("input[name='job_number']");
+        var username = $("input[name='username']");
+        var sex = $("input[name='sex']");
+        var parent_id = $("#depart_id select");
+        var sex = $('input:radio:checked');
+        var phone = $("input[name='phone']");
+        if(job_number.val()==''){
+            layer.tips('必填*', job_number);
+            job_number.focus();
+            return false
+        }
+        if(username.val()==''){
+            layer.tips('必填*', username);
+            username.focus();
+            return false
+        }
+        if(parent_id.val()=='0'){
+            layer.tips('请选择', parent_id);
+            parent_id.focus();
+            return false
+        }
+        if(phone.val()==''){
+            layer.tips('必填*', phone);
+            phone.focus();
+            return false
+        }
+        if(phone.val()==''){
+            layer.tips('必填*', phone);
+            phone.focus();
+            return false
+        }
+        var d =/(1[3-9]\d{9}$)/;
+        if(!d.test(phone.val())){
+            layer.tips('不合法', phone);
+            phone.focus();
+            return false;
+        }
+        $('.button').attr("disabled","disabled");//防止重复提交
+        $.post("<?php echo U('Staff/add');?>",{
+            job_number:job_number.val(),
+            username:username.val(),
+            sex:sex.val(),
+            parent_id:parent_id.val(),
+            phone:phone.val(),
+        },function(res){
+            if(res.status==1){
+                parent.layer.msg(res.info, {
+                    offset: 200,
+                    shift: 1,
+                    time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+                }, function(){
+                    parent.location.reload()
+                    parent.layer.closeAll()
+                });
+            } else{
+                layer.msg(res.info, {
+                    offset: 200,
+                    shift: 2,
+                    time: 1600 //2秒关闭（如果不配置，默认是3秒）
+                });
+                $('.button').removeAttr('disabled');//防止重复提交
+            }
+        });
+    }
+</script>

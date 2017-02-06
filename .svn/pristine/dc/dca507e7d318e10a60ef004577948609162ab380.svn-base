@@ -1,0 +1,125 @@
+<div class="fangcms_box f_3 rich" style="float:right;width:530px;margin-top: -28px;display:none;">
+	<form method="post">
+		<div class="form-group">
+			<div class="label">
+				<label for="name">
+					标题:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="title" name="title_3" size="50" placeholder="标题" value="{$infos.2.title}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+				<div class="label">
+					<label for="logo">封面图片<font color="red" style="font-size:10px;">[*建议上传94*40,透明背景]</font></label>
+					</div>
+					   <div class="field">
+									<a class="button input-file">+ 浏览文件
+									<input name="file" id="pic_3" size="100" type="file"/></a>
+									<input type="hidden" name="pic_3" value="{$infos.2.pic}">
+				</div>
+			</div>
+
+		<div class="form-group">
+			<div class="label">
+				<label for="name">
+					图文外链网址:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="url" name="url_3" size="50" placeholder="记住如果填写必须有http://)如果填写了图文详细内容，这里请留空，不要设置！" value="<if condition="$infos[2]['url'] eq null">{:C('site_url')}{:U('Home/Weixin/multi_info',array('id'=>$infos[2]['id']))}<else />{$info.2.url}</if> "/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			
+
+		<div class="label"><label for="content">详细内容</label></div>
+
+            <div class="field x12"> 
+
+               <textarea type="text/plain" id="editor_3" style="width:100%;height:300px;">{$infos.2.content}</textarea>
+               
+    </div>
+   </div>  
+<input type="hidden" name="rich_id_3" value="{$infos.2.id} ">
+	
+	</form>
+</div>
+
+<script>
+//实例化编辑器
+
+    var ue_3 = UE.getEditor('editor_3',{
+    elementPathEnabled:false,
+      wordCount:false,          //是否开启字数统计
+
+  serverUrl:'{:U("Admin/Upload1/index/Type/rich_content")}',
+
+  toolbars:[[
+
+  'source','bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain','forecolor', 'backcolor', 'fontsize',
+
+  'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'touppercase', 'tolowercase', 
+
+  'link', 'unlink','imagenone', 'imageleft', 'imageright', 'imagecenter',
+
+  'simpleupload', 'insertimage', 'map','fullscreen'
+
+  ]]
+
+});
+
+    $(function () {
+
+      	$("#pic_3").wrap("<form id='upload_3'  method='post' enctype='multipart/form-data'></form>");
+
+      	$("#pic_3").change(function(){
+
+      	$('#upload_3').form('submit', {
+								
+					  type: 'POST',
+					  url: "{:U('Upload/index')}",
+					     onSubmit: function(param){
+					        param.Type   = 'richtext/';   //图片存储路径
+					    },  
+					  
+					  success: function(data){
+							if(data.status==0){
+
+		      					layer.open({
+
+		      						content:data.info,
+
+		      						btn:['好的'],
+
+		      						yes:function(){
+
+		      							layer.closeAll()
+
+		      						}
+
+		      					})
+
+		      				}else{
+
+		      					$(".im_3").attr('src',data);
+
+		      					$("input[name='pic_3']").val(data);
+
+		      					layer.closeAll()
+
+		      				}
+						}
+				});
+
+      	});
+
+
+      	$("input[name='title_3']").change(function(){
+      		var title = $(this).val();
+      		$(".te_3").html(title);
+      	})
+
+    });
+</script>

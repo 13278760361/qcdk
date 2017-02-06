@@ -1,0 +1,111 @@
+<include file="Public/header" />
+<div class="admin">
+	<form method="get">
+		<div class="panel admin-panel">
+			<div class="panel-head"><strong>考勤列表</strong></div>
+			<div style="width:100%;" class="padding border-bottom form-inline">
+				<div style="float:left;margin-top:2px;" class="x16">
+					<a href="javascript:;" onclick="System.add('考勤信息导出','{:U("Admin/Work/abnormal")}')"><input type="button" class="button button-small border-green" value="导出异常考勤信息" ></a>
+					<div class="clear"></div>
+				</div>
+
+				<div style="float:right;" class="x16">
+					<div style="margin-top:10px;float:right;" class="x16">
+					<!-- 筛选 -->
+					<div class="form-group">
+						<div class="form-group">
+							<div class="field">
+								<input type="datetime"  id="keyword" name="keyword" placeholder="工号|姓名" value="{$keyword}"style="border: solid 1px #ddd; border-radius: 4px;margin-bottom: 4px">
+							</div>
+						</div>
+						<div class="field"  style="margin-left: 5px " >
+							<select  name="departs"style="border: solid 1px #ddd; border-radius: 4px;">
+								<option value="">部门</option>
+								<volist name="departs" id="vo">
+									<option value="{$key}" <if condition="$key eq $departss">selected</if> >{$vo}</option>
+								</volist>
+							</select>
+						</div>
+						<div class="field" style="margin-left: 5px">
+							<select name="sex" style="border: solid 1px #ddd; border-radius: 4px;">
+								<option value="">姓别</option>
+								<option value="1"  <if condition="1 eq $sex">selected</if> >男</option>
+								<option value="2"<if condition="2 eq $sex">selected</if> >女</option>
+								<option value="3" <if condition="3	 eq $sex">selected</if> >保密</option>
+							</select>
+						</div>
+						<div class="field" style="margin-left: 5px">
+							<input type="datetime" name="start_date" class="text date" value="{$start_time}" placeholder="请选择开始时间" style="border: solid 1px #ddd; border-radius: 4px;" /> -
+						</div>
+						<div class="field " style="margin-left: 5px">
+								<input type="datetime" name="end_date" class="text date" value="{$end_time}" placeholder="请选择结束时间" style="border: solid 1px #ddd; border-radius: 4px;"  />
+						</div>
+					</div>
+					<!-- 筛选 -->
+					<div class="form-button">
+						<button type="submit" id="search"  style="border: solid 1px #ddd; border-radius: 4px; margin-bottom: 4px" >搜索</button>
+					</div>
+					</div>
+					<!--<div class="clear"></div>-->
+				</div>
+			</div>
+			<table class="table table-hover">
+
+				<tr>
+					<th width="*">工号</th>
+					<th width="*">姓名</th>
+					<th width="*">性别</th>
+					<th width="*">部门</th>
+					<th width="*">上班时间</th>
+					<th width="*">下班时间</th>
+					<th width="*">日期</th>
+				</tr>
+				<volist name="lists" id="vo">
+					<tr>
+						<td>{$vo.job_number}</td>
+						<td>{$vo.username}</td>
+						<td>
+							<if condition="$vo.sex eq 1">男
+								<elseif condition="$vo.sex eq 2"/>女
+								<else />保密
+							</if>
+						</td>
+
+						<td>{$vo.depart_name}</td>
+						<td><empty name="vo.sign_time">**：**<else/>{$vo.sign_time|date='H:i',###}</empty></td>
+						<td><empty name="vo.xtime">**：**<else/>{$vo.xtime|date='H:i',###}</empty></td>
+						<td>{$vo.sign_date}</td>
+					</tr>
+				</volist>
+			</table>
+			<div class="panel-foot text-right" style="font-size:12px;">
+				{$page}
+			</div>
+		</div>
+	</form>
+	<br />
+	<include file="Public/footer" />
+	<!-- 包含底部部模版footer -->
+</div>
+</body>
+<link href="{:ORG_PATH}datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+
+<link href="{:ORG_PATH}datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{:ORG_PATH}datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="{:ORG_PATH}datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.date').datetimepicker({
+			format: 'yyyy-mm-dd',
+			language:"zh-CN",
+			minView:2,
+			autoclose:true
+		});
+	});
+	$('.date').datetimepicker({
+		format: 'yyyy-mm-dd',
+		language:"zh-CN",
+		minView:2,
+		autoclose:true
+	});
+</script>

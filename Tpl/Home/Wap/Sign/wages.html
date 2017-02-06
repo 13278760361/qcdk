@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>详细信息</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_info_bd">
+	
+<!--查看工资-->
+<div class="sign_shadow">
+	<div class="sign_dialog">
+		<div class="sign_info_cont">
+			<div class="sib_tit"><a href='javascript:' onClick='history.back();'><i class="close"></i></a><span>{$date_r}</span></div> 
+
+			<h5>{$info.username}（{$info.depart_name}）</h5>
+			<div class="sic_box">
+				<ul class="sic_b_left">
+					<li>应发项目</li>
+					<li>基本工资：{$info.base_pay}</li>
+					<li>岗位津贴 ：{$info.post_all}</li>
+					<li>餐费补贴：{$info.meal_all}</li>
+					<li>电脑补贴：{$info.com_sub}</li>
+					<li>绩效工资：{$info.mer_pay}</li>
+					<li>实际出勤：{$info.act_att}天</li>
+				</ul>
+				<ul class="sic_b_left">
+					<li>应扣项目</li>
+					<li>养老保险：{$info.end_ins}</li>
+					<li>失业保险：{$info.une_ins}</li>
+					<li>医疗保险：{$info.med_ins}</li>
+					<li>特重病：{$info.ill_ins}</li>
+					<li>公积金：{$info.acc_fund}</li>
+					<li>五险一金：{$info.hou_fund}</li>
+					<li>个人所得税：{$info.indiv}</li>
+				</ul>
+			</div>
+			<div class="sign_info_btn">实发 : {$info.wages}</div>
+		</div>
+		<div class="sign_info_mony"></div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<include file="Public/header" />  <!-- 包含头部模版header --> 
+
+		<div class="admin">
+			<form method="get">
+				<div class="panel admin-panel">
+					<div class="panel-head"><strong>内容列表</strong></div>
+				<div style="width:100%;" class="padding border-bottom form-inline">
+				<div style="float:left;" class="x16">
+					<input type="button" class="button button-small checkall" name="checkall" checkfor="table_name" value="全选" />
+					<input type="button" class="button button-small border-green" value="批量备份" onclick="getTable('备份','{:U('Data/backUp')}')">
+					<input type="button" class="button button-small border-yellow" value="批量优化" onclick="getTable('优化','{:U('Data/optimization')}')" />
+						<input type="button" class="button button-small border-black" value="批量修复" onclick="getTable('修复','{:U('Data/repair')}')" />
+					<!--    <input type="button" class="button button-small border-blue" value="回收站" /> -->
+					<div class="clear"></div>
+				</div>
+				<div style="float:right;" class="x16">
+					<!-- <div class="form-group">
+						<div class="field">
+							<input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="操作者" value="{$keyword}">
+						</div>
+					</div> -->
+					<!-- 筛选 -->
+					<!-- <div class="form-group">
+						<div class="field">
+							<select class="input" name="group" onchange="getSearch()">
+								<option value="">用户组</option>
+								  <volist name="Admin_Type" id="vo">
+								<option value="{$key}">{$vo}</option>
+							    </volist>
+							</select>
+						</div>
+					</div> -->
+					<!-- 筛选 -->
+					<!-- <div class="form-button">
+						<button class="button" type="submit" id="search">搜索</button>
+					</div> -->
+					<div class="clear"></div>
+				</div>
+			</div>
+					<table class="table table-hover">
+			
+						<tr>
+							<th width="45">选择</th>
+							<th width="120">表名</th>
+							<th width="*">引擎类型</th>
+							<th width="100">记录行数</th>
+							<th width="*">字符集</th>
+							<th width="*">表大小</th>
+							<th width="100">操作</th>
+						</tr>
+						<volist name="lists" id="vo">
+							<tr>
+								<td>
+									<input type="checkbox" name="table_name" value="{$vo.table_name}" />
+								</td>
+								<td>{$vo.name}</td>
+								<td>{$vo.engine}</td>
+								<td>{$vo.rows}</td>
+								<td>{$vo.collation}</td>
+								<td>{$vo.size}</td>
+							
+								<td><a class="button border-green button-little" href="#" onclick="System.data('{$vo.table_name}','{$vo.table_name}','备份','{:U('Data/backUp')}')">备份</a>
+								<a class="button border-yellow button-little" href="#" onclick="System.data('{$vo.table_name}','{$vo.table_name}','优化','{:U('Data/optimization')}')">优化</a> 
+								<a class="button border-black button-little" href="#" onclick="System.data('{$vo.table_name}','{$vo.table_name}','修复','{:U('Data/repair')}')">修复</a></td>
+							</tr>
+						</volist>
+					
+					</table>
+					<div class="panel-foot text-right" style="font-size:12px;">
+				{$page}
+			      </div>
+				</div>
+			</form>
+			<br />
+			<include file="Public/footer" />  <!-- 包含底部部模版footer -->
+		</div>
+	</body>
+
+</html>

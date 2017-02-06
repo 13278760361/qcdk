@@ -1,0 +1,76 @@
+<link href="{:CS_PATH}pintuer.css" rel="stylesheet" type="text/css" />
+<link href="{:CS_PATH}fangcms.css" rel="stylesheet" type="text/css" />
+<script src="{:JS_PATH}jquery.min.js" type="text/javascript"></script>
+<script src="{:JS_PATH}pintuer.js" type="text/javascript"></script>
+<script src="{:JS_PATH}/lib/layer/layer.js" type="text/javascript"></script>
+<!-- 系统弹窗JS -->
+<script src="{:JS_PATH}system.js"></script>
+
+<div class="admin">
+			<form method="get">
+				<div class="panel admin-panel">
+					<!-- <div class="panel-head"><strong>内容列表</strong></div> -->
+				<div style="width:100%;" class="padding border-bottom form-inline">
+				<div style="float:left;" class="x16">
+					<input type="button" class="button button-small checkall" name="checkall" checkfor="file_name" value="全选" />
+					<!-- <input type="button" class="button button-small border-green" value="添加文件" onclick="getTable('备份','{:U('Data/backUp')}')"> -->
+					<input type="button" class="button button-small border-yellow" value="批量删除" onclick="getFile('{:U('Images/file_del')}')" />
+					<!-- 	<input type="button" class="button button-small border-black" value="一件清理多余图片" onclick="getTable('修复','{:U('Data/repair')}')" /> -->
+					<!--    <input type="button" class="button button-small border-blue" value="回收站" /> -->
+					<div class="clear"></div>
+				</div>
+				<div style="float:right;" class="x16">
+					<!-- <div class="form-group">
+						<div class="field">
+							<input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="操作者" value="{$keyword}">
+						</div>
+					</div> -->
+					<!-- 筛选 -->
+					<!-- <div class="form-group">
+						<div class="field">
+							<select class="input" name="group" onchange="getSearch()">
+								<option value="">用户组</option>
+								  <volist name="Admin_Type" id="vo">
+								<option value="{$key}">{$vo}</option>
+							    </volist>
+							</select>
+						</div>
+					</div> -->
+					<!-- 筛选 -->
+					<!-- <div class="form-button">
+						<button class="button" type="submit" id="search">搜索</button>
+					</div> -->
+					<div class="clear"></div>
+				</div>
+			</div>
+					<table class="table table-hover">
+			
+						<tr>
+							<th width="45">选择</th>
+							<th width="120">文件</th>
+							<!-- <th width="100">文件描述</th> -->
+							<th width="100">操作</th>
+						</tr>
+						<volist name="lists" id="vo">
+							<tr>
+								<td>
+									<input type="checkbox" name="file_name" value="{$path}/{$key}" />
+								</td>
+								<td><span class="icon-folder-open-o text-big"></span>&nbsp;<a href="{:U('Images/path_2',array('path_p'=>$path,'path'=>$key))}">{$key}</a></td>
+								<!-- <td>{$vo.intro}</td> -->
+							
+								<td><!-- <a class="button border-green button-little" href="#" onclick="System.data('{$vo.table_name}','{$vo.table_name}','备份','{:U('Data/backUp')}')">修改</a> -->
+								<a class="button border-yellow button-little" href="#" onclick="System.file_del('{$path}/{$key}','{$key}','{:U('Images/file_del')}')">删除</a> 
+								<!-- <a class="button border-black button-little" href="#" onclick="System.edit('文件内容','{:U('Images/path_1',array('path'=>$key))}')">内容</a> --></td>
+							</tr>
+						</volist>
+					
+					</table>
+					<div class="panel-foot text-right" style="font-size:12px;">
+				{$page}
+			      </div>
+				</div>
+			</form>
+			<br />
+			<include file="Public/footer" />  <!-- 包含底部部模版footer -->
+		</div>

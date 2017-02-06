@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>详细信息</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_info_bd">
+	
+<div class="sign_shadow">
+	<div class="sign_calendar">
+		<div class="calendar_box">
+			<div class="calendar_hd">
+				<div class="prev_month"><i></i></div>
+				<div class="datetime">2016年9月</div>
+				<div class="next_month"><i></i></div>
+			</div>
+			<ul class="calendar_weeks">
+				<li>S</li>
+				<li>M</li>
+				<li>T</li>
+				<li>W</li>
+				<li>T</li>
+				<li>F</li>
+				<li>S</li>
+			</ul>
+			<ul class="calendar_days"></ul>
+		</div>
+		<div class="sign_info_month"><img src="{:CS_PATH}png/{$thisMonth}.png"  id="monthImg" /></div>
+	</div>
+</div>
+
+
+
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}calendar.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	//日历模块调用
+	var arr ={$arr};//未打开日，请假日
+	var salaryDay = "{$wages_time}";
+	calendar.nowDate();
+	calendar.renderHtml(arr,salaryDay);
+	
+	
+	
+	
+	
+	//监听天数点击，获取日期 datetime
+	$(".calendar_box").on("click",".calendar_days li",function() {
+		if ( $(this).attr('class') == 'nosign' ||  $(this).attr('class') == 'curday nosign' ) { //没打开的点不开
+			return;
+		};
+		var datetime = $(this).attr("data-date");	
+		console.log(datetime);
+		var url ="{$url}clickTime/"+datetime;
+		window.location.href=url; 
+	});
+	//下个月
+	$(".calendar_hd .next_month").on("click",function() {
+		calendar.nextMonth(arr,salaryDay);
+		console.log(calendar.getYearAndMonth());
+		
+		 $.ajax({
+	             type: "POST",
+	             url: "{:U('Sign/getMonthDate')}",
+	             data: {clickDate:calendar.getYearAndMonth()},
+	             dataType: "json",
+	             success: function(data)
+	             {
+	                  
+	             		calendar.renderHtml(data.date,data.wages_time);
+
+	             		$("#monthImg").attr('src',"{:CS_PATH}png/"+data.thisMonth+".png");
+
+	             }
+	         });
+		
+  
+	});
+	//上个月
+	$(".calendar_hd .prev_month").on("click",function() {
+	    calendar.preMonth(arr,salaryDay);
+		console.log(calendar.getYearAndMonth());
+		// alert( calendar.getYearAndMonth() );
+
+	
+		   $.ajax({
+	             type: "POST",
+	             url: "{:U('Sign/getMonthDate')}",
+	             data: {clickDate:calendar.getYearAndMonth()},
+	             dataType: "json",
+	             success: function(data)
+	             {
+	                  
+	             		calendar.renderHtml(data.date,data.wages_time);
+
+	             		$("#monthImg").attr('src',"{:CS_PATH}png/"+data.thisMonth+".png");
+	             }
+	         });
+	});
+		
+})
+
+</script>
+</html>

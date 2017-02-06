@@ -1,0 +1,85 @@
+<include file="Public/header" />
+<!-- 包含头部模版header -->
+
+<div class="admin">
+	<form method="get">
+		<div class="panel admin-panel">
+			<div class="panel-head"><strong>内容列表</strong></div>
+			<div style="width:100%;" class="padding border-bottom form-inline">
+				<div style="float:left;" class="x16">
+					<input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
+					<input type="button" class="button button-small border-green" value="添加管理员" onclick="System.add('添加管理员','{:U('Admin/add')}')">
+					<input type="button" class="button button-small border-yellow" value="批量删除" onclick="getID('{:U('Admin/del')}')" />
+					<!--    <input type="button" class="button button-small border-blue" value="回收站" /> -->
+					<div class="clear"></div>
+				</div>
+				<div style="float:right;" class="x16">
+					<div class="form-group">
+						<div class="field">
+							<input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="账号|昵称" value="{$keyword}">
+						</div>
+					</div>
+					<!-- 筛选 -->
+					<div class="form-group">
+						<div class="field">
+							<select class="input" name="group" onchange="getSearch()">
+								<option value="">用户组</option>
+								  <volist name="groups" id="vo">
+								<option value="{$key}">{$vo}</option>
+							    </volist>
+							</select>
+						</div>
+					</div>
+					<!-- 筛选 -->
+					<div class="form-button">
+						<button class="button" type="submit" id="search">搜索</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<table class="table table-hover">
+
+				<tr>
+					<th width="45">选择</th>
+					<th width="120">账号</th>
+					<th width="*">昵称</th>
+					<th width="100">邮箱</th>
+					<th width="*">最后登录时间</th>
+					<th width="*">登录次数</th>
+					<th width="*">用户组</th>
+					<th width="*">状态</th>
+					<th width="100">操作</th>
+				</tr>
+
+				<volist name="lists" id="vo">
+					<tr>
+						<td>
+							<input type="checkbox" name="id" value="{$vo.id}" />
+						</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.nickname}</td>
+						<td>{$vo.email}</td>
+						<td>{$vo.last_login_time|date="Y-m-d H:i",###}</td>
+						<td>{$vo.login_count}</td>
+						<td>{$vo.title}</td>
+						<td>
+							<if condition="$vo['status'] eq '1'">启用
+								<else />禁用</if>
+						</td>
+						<td><a class="button border-blue button-little" href="#" onclick="System.edit('编辑管理员','{:U('Admin/edit',array('id'=>$vo['id']))}')">修改</a> <a class="button border-yellow button-little" href="#" onclick="System.del('{$vo.id}','{$vo.username}','{:U('Admin/del')}')">删除</a></td>
+					</tr>
+				</volist>
+
+			</table>
+			<div class="panel-foot text-right" style="font-size:12px;">
+				{$page}
+			</div>
+		</div>
+	</form>
+	<br />
+	<include file="Public/footer" />
+	<!-- 包含底部部模版footer -->
+</div>
+</body>
+
+</html>

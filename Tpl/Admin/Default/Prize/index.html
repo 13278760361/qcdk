@@ -1,0 +1,97 @@
+<include file="Public/header" />
+<!-- 包含头部模版header -->
+<link rel="stylesheet" href="{:CS_PATH}depart.css">
+<div class="admin">
+    <form method="get">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong>摇一摇奖品列表</strong><a style="margin-left:20px;color:#5d8;" href="{:U('Prize/red_index',array('pid'=>$_GET['pid']))}"><strong>返回</strong></a></div>
+            <div style="width:100%;" class="padding border-bottom form-inline">
+                <div style="float:left;" class="x16">
+                    <input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" />
+                    <input type="button" class="button button-small border-green" value="添加奖品" onclick="System.add('添加奖品','{:U('Prize/add',array('id'=>$_GET['id']))}')">
+                   <!-- <input type="button" class="button button-small border-blue UpdateOrder" value="更新排序"  />-->
+                   <input type="text" name="s_id" hidden="hidden" value="{$_GET['id']}"/>
+                    <input type="button" class="button button-small border-yellow" value="批量删除" onclick="getID('{:U('Prize/del')}')"/>
+                    <div class="clear"></div>
+                </div>
+                <div style="float:right;" class="x16">
+                    <div class="form-group">
+                        <div class="field">
+                            <input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="奖品名称" value="{$keyword}">
+                        </div>
+                    </div>
+                    <!-- 筛选 -->
+                    <div class="form-button">
+                        <button class="button" type="submit" id="search">搜索</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <table class="table table-hover" id="table">
+                <tr>
+                    <th width="*">ID</th>
+                    <th width="*">奖品名称</th>
+                    <th width="*">所属场景</th>
+                    <th width="*">奖品类型</th>
+                    <th width="*">奖品图片</th>
+                    <th width="*">奖品数量</th>
+                    <th width="*">奖品概率</th>
+                    <th width="*">奖品金额</th>
+                    <th width="*">奖品状态</th>
+                    <th width="*">操作</th>
+                </tr>
+                <volist name="lists" id="vo">
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="id" value="{$vo.id}"/>{$vo.id}
+                        </td>
+                        <td>{$vo.prize_name}</td>
+                        <td>{$vo.scene_name}</td>
+                        <td>{$vo.type}</td>
+                        <td><img src="{$vo.pic}" style="width: 40px"></td>
+                        <td>
+                            {$vo.num}
+                        </td>
+                        
+                        <td>{$vo.prob}</td>
+                        <td>{$vo.money}</td>
+                        <td>
+                            <if condition="$vo['status'] eq '1'">启用
+                            <else />禁用</if>
+                        </td>
+                        <td>
+                        <a class="button border-blue button-little" href="{:U('Prize/record_list',array('id'=>$vo['id'],'pid'=>$_GET['pid'],'leve'=>'on'))}">中奖列表</a>
+                        <a class="button border-blue button-little" href="#" onclick="System.edit('编辑奖品','{:U('Prize/edit',array('id'=>$vo['id']))}')">修改</a> <a class="button border-yellow button-little" href="#" onclick="System.del('{$vo.id}','{$vo.scene_name}','{:U('Prize/del',array('ids'=>$vo['id']))}')">删除</a></td>
+                    </tr>
+                </volist>
+            </table>
+            <div class="panel-foot text-right" style="font-size:12px;">
+                {$page}
+            </div>
+        </div>
+    </form>
+    <br />
+    <include file="Public/footer" />
+    <!-- 包含底部部模版footer -->
+    <!-- <script>
+         $('.UpdateOrder').click(function(){
+             $.post("{:U('admin/Depart/order')}",
+             $('#table').find('input[type="text"].text-center').serialize(),
+             function(res){
+               if(res.status ==1){
+                   parent.layer.msg(res.info,{
+                               offset: 200,
+                               shift: 2,
+                               time: 800 //2秒关闭（如果不配置，默认是3秒）
+                   }, function(){
+                       parent.location.reload()
+                       parent.layer.closeAll()
+                   });
+               }
+             });
+         });
+    </script> -->
+</div>
+</body>
+
+</html>

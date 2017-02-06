@@ -1,0 +1,61 @@
+<include file="Public/header" />  <!-- 包含头部模版header -->
+
+		<div class="admin">
+			<form method="post">
+				<div class="panel admin-panel">
+					<div class="panel-head"><strong>内容列表</strong></div>
+					<div class="padding border-bottom">
+					<!-- 	<input type="button" class="button button-small checkall" name="checkall" checkfor="id" value="全选" /> -->
+						<input type="button" class="button button-small border-green" value="添加节点" onclick="System.add('添加节点','{:U('Node/add')}')" />
+					<!-- 	<input type="button" class="button button-small border-yellow" value="批量删除" />
+						<input type="button" class="button button-small border-blue" value="回收站" /> -->
+					</div>
+					<table class="table table-hover">
+					<!--  <th>ID</th><th>节点名称</th><th>PID</th><th>排序</th><th>创建时间</th><th>操作</th> -->
+						<tr>
+							<!-- <th width="45">选择</th> -->
+							<th width="120">节点名称</th>
+							<th width="*">PID</th>
+							<th width="100">排序</th>
+							<th width="*">状态</th>
+							<th width="*">创建时间</th>
+							<th width="100">操作</th>
+						</tr>
+						<volist name="lists" id="vo">
+							<tr>
+							<!-- 	<td>
+									<input type="checkbox" name="id" value="{$vo.id}" />
+								</td> -->
+								<td>{$vo.fullname}</td>
+								<td>{$vo.pid}</td>
+								<td>{$vo.sort}</td>
+								<td><if condition="$vo['status'] eq 1">开启<else/>关闭</if></td>
+								<td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+								<td><a class="button border-blue button-little" href="#" onclick="System.edit('编辑节点','{:U('Node/edit',array('id'=>$vo['id']))}')">修改</a> <a class="button border-yellow button-little" href="#" onclick="System.del('{$vo.id}','{$vo.title}','{:U('Node/del')}')">删除</a></td>
+							</tr>
+						</volist>
+					
+					</table>
+					<!-- <div class="panel-foot text-center">
+						<ul class="pagination">
+							<li><a href="#">上一页</a></li>
+						</ul>
+						<ul class="pagination pagination-group">
+							<li><a href="#">1</a></li>
+							<li class="active"><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+						</ul>
+						<ul class="pagination">
+							<li><a href="#">下一页</a></li>
+						</ul>
+					</div> -->
+				</div>
+			</form>
+			<br />
+			<include file="Public/footer" />  <!-- 包含底部部模版footer -->
+		</div>		
+	</body>
+
+</html>

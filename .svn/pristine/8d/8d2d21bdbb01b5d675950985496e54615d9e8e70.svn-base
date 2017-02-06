@@ -1,0 +1,684 @@
+<include file="Public/header" />  <!-- 包含头部模版header -->
+   
+    <link href="{:CS_PATH}fangcms.css" rel="stylesheet" media="screen">
+    <link href="{:CS_PATH}bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<div class="admin">
+
+			<div class="tab">
+				<div class="tab-head">
+					<ul class="tab-nav">
+						<li class="active"><a href="#tab-set">系统设置</a></li>
+						<li><a href="#tab-upload">上传设置</a></li>
+						<li><a href="#tab-backup">备份设置</a></li>
+						<li><a href="#tab-page">分页设置</a></li>
+						<li><a href="#tab-sms">工作时间设置</a></li>
+						<li><a href="#tab-weixin">微信配置</a></li>
+						<li><a href="#tab-prize">摇一摇奖品配置</a></li>
+					</ul>
+				</div>
+				<div class="tab-body">
+					<br />
+					<div class="tab-panel active" id="tab-set">
+					<!-- 	<form method="post" class="form-tips" action="system.html" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="sitename">网站名称</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_name" name="site_name" size="50" placeholder="网站名称" value="{:C('site_name')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="siteurl">网址</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_url" name="site_url" size="50" placeholder="请填写网址" value="{:C('site_url')}" data-validate="required:请填写,url:格式不正确"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="logo">网站Logo<font color="red" style="font-size:10px;">[*建议上传94*40,透明背景]</font></label>
+								</div>
+								<div class="field">
+									<a class="button input-file" href="javascript:void(0);">+ 浏览文件<input name="file" id="logo" size="100" type="file" data-validate="required:请上传Logo图片"/></a>
+									<input type="hidden" id="site_logo" name="site_logo" value="{:C('site_logo')}">
+								</div>
+							</div>
+							<img src="{:C('site_logo')}" width="100" height="100" class="img-border radius-small" id="logo_img" />
+
+
+							<div class="form-group">
+								<div class="label">
+									<label for="qr">微信二维码<font color="red" style="font-size:10px;"></font></label>
+								</div>
+								<div class="field">
+									<a class="button input-file" href="javascript:void(0);">+ 浏览文件<input name="file" id="qr" size="100" type="file" data-validate="required:请上传二维码"/></a>
+									<input type="hidden" id="site_qr" name="site_qr" value="{:C('site_qr')}">
+								</div>
+							</div>
+							<img src="{:C('site_qr')}" width="100" height="100" class="img-border radius-small" id="qr_img" />
+
+
+							<div class="form-group">
+								<div class="label">
+									<label for="watermark">水印图片</label>
+								</div>
+								<div class="field">
+									<a class="button input-file" href="javascript:void(0);">+ 浏览文件<input name="file" id="watermark" size="100" type="file"/></a>
+									<input type="hidden" id="site_watermark" name="site_watermark" value="{:C('site_watermark')}">
+								</div>
+							</div>
+							<img src="{:C('site_watermark')}" width="100" height="100" class="img-border radius-small" id="watermark_img" />
+
+						   <div class="form-group">
+								<div class="label">
+									<strong>水印位置</strong>
+								</div>
+								<div class="field">
+									<div class="button-group radio">
+										<label class="button <?php if (C('site_watermarkposition') == 0) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="0" type="radio" <?php if (C('site_watermarkposition') == 0) {?>checked="checked"<?php }?>>关闭
+										</label>
+										<label class="button <?php if (C('site_watermarkposition') == 1) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="1" type="radio" <?php if (C('site_watermarkposition') == 1) {?>checked="checked"<?php }?>>左上
+										</label>
+										<label class="button <?php if (C('site_watermarkposition') == 7) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="7" type="radio" <?php if (C('site_watermarkposition') == 7) {?>checked="checked"<?php }?>>左下
+										</label>
+										<label class="button <?php if (C('site_watermarkposition') == 3) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="3" type="radio" <?php if (C('site_watermarkposition') == 3) {?>checked="checked"<?php }?>>右上
+										</label>
+										<label class="button <?php if (C('site_watermarkposition') == 9) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="9" type="radio" <?php if (C('site_watermarkposition') == 9) {?>checked="checked"<?php }?>>右下
+										</label>
+										<label class="button <?php if (C('site_watermarkposition') == 5) {?>active<?php }?>">
+											<input name="site_watermarkposition" value="5" type="radio" <?php if (C('site_watermarkposition') == 5) {?>checked="checked"<?php }?>>居中
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="site_watermarkalignment">水印融合度</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_watermarkalignment" name="site_watermarkalignment" size="50" placeholder="1-100值越大水印透明度越低" value="{:C('site_watermarkalignment')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="title">优化标题</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_title" name="site_title" size="50" placeholder="title标题内容，用于搜索引擎优化" value="{:C('site_title')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="keywords">关键词</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_keywords" name="site_keywords" size="50" placeholder="站点关键词，用于搜索引擎优化" value="{:C('site_keywords')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="readme">网站描述</label>
+								</div>
+								<div class="field">
+									<textarea class="input" name="site_desc" rows="5" cols="50" placeholder="请填写网站描述" data-validate="required:请填写">{:C('site_desc')}</textarea>
+								</div>
+							</div>
+
+
+
+							<div class="form-group">
+								<div class="label">
+									<label for="tel">联系电话</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_tel" name="site_tel" size="50" placeholder="多个电话请以逗号分隔" value="{:C('site_tel')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="rtel">座机</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_rtel" name="site_rtel" size="50" placeholder="多个电话请以逗号分隔" value="{:C('site_rtel')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="email">邮箱</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_email" name="site_email" size="50" placeholder="邮箱" value="{:C('site_email')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="qq">客服QQ</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_qq" name="site_qq" size="50" placeholder="多个QQ请以逗号分隔" value="{:C('site_qq')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="address">联系地址</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_address" name="site_address" size="50" placeholder="详细地址" value="{:C('site_address')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="icp">网站备案号</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="site_icp" name="site_icp" size="50" placeholder="网站备案号" value="{:C('site_icp')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							
+
+							<div class="form-group">
+								<div class="label">
+									<label>网站状态</label>
+								</div>
+								<div class="field">
+									<div class="button-group button-group-small radio">
+										<label class="button <?php if (C('site_status') == 1) {?>active<?php }?>">
+											<input name="site_status" value="1"  type="radio" <?php if (C('site_status') == 1) {?>checked="checked"<?php }?>><span class="icon icon-check"></span> 开启</label>
+										<label class="button <?php if (C('site_status') == 0) {?>active<?php }?>">
+											<input name="site_status" value="0" type="radio" <?php if (C('site_status') == 0) {?>checked="checked"<?php }?>><span class="icon icon-times"></span> 关闭</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="readme">维护说明</label>
+								</div>
+								<div class="field">
+									<textarea name="site_maintain" class="input" rows="5" cols="50" placeholder="请填写维护说明">{:C('site_maintain')}</textarea>
+								</div>
+							</div>
+
+
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_site()">提交</button>
+							</div>
+						<!-- </form> -->
+					</div>
+				
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-upload">
+						<!-- <form method="post" class="form-tips" action="" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="UPLOAD_PATH">上传目录</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="UPLOAD_PATH" name="UPLOAD_PATH" size="50" placeholder="文件上传目录" value="{:C('UPLOAD_PATH')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="UPlOAD_SIZE">允许上传文件大小</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="UPlOAD_SIZE" name="UPlOAD_SIZE" size="50" placeholder="文件大小" value="{:C('UPlOAD_SIZE')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="UPLOAD_EXTS">允许上传文件类型</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="UPLOAD_EXTS" name="UPLOAD_EXTS" size="50" placeholder="允许类型" value="{:C('UPLOAD_EXTS')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+						
+
+
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_upload()">提交</button>
+							</div>
+						<!-- </form> -->
+
+					</div>
+
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-backup">
+						
+						<!-- <form method="post" class="form-tips" action="" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="BACK_PATH">数据备份路径<font color="red" style="font-size:10px;">[*路径必须以 / 结尾]</font></label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="BACK_PATH" name="BACK_PATH" size="50" placeholder="数据备份路径" value="{:C('BACK_PATH')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="BACK_PART">数据备份卷大小<font color="red" style="font-size:10px;">[*该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M]</font></label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="BACK_PART" name="BACK_PART" size="50" placeholder="数据备份卷大小" value="{:C('BACK_PART')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							 <div class="form-group">
+								<div class="label">
+									<strong>数据库备份文件是否启用压缩<font color="red" style="font-size:10px;">[*压缩备份文件需要PHP环境支持gzopen,gzwrite函数]</font></strong>
+								</div>
+								<div class="field">
+									<div class="button-group radio">
+										<label class="button <?php if (C('BACK_COMPRESS') == 0) {?>active<?php }?>">
+											<input name="BACK_COMPRESS" value="0" type="radio" <?php if (C('BACK_COMPRESS') == 0) {?>checked="checked"<?php }?>>不压缩
+										</label>
+										<label class="button <?php if (C('BACK_COMPRESS') == 1) {?>active<?php }?>">
+											<input name="BACK_COMPRESS" value="1" type="radio" <?php if (C('BACK_COMPRESS') == 1) {?>checked="checked"<?php }?>>启用压缩
+										</label>
+										
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="BACK_LEVEL">
+										数据库备份文件压缩级别<font color="red" style="font-size:10px;">[*数据库备份文件的压缩级别，该配置在开启压缩时生效]</font></label>
+								</div>
+								<div class="field">
+									<select class="input" name="BACK_LEVEL" data-validate="required:请填写">
+						
+									
+											<option value="1"<?php if(C('BACK_LEVEL') == 1 ){?>selected='selected' <?php }?> >普通</option>
+											<option value="4"<?php if(C('BACK_LEVEL') == 4 ){?>selected='selected' <?php }?> >一般</option>
+											<option value="9"<?php if(C('BACK_LEVEL') == 9 ){?>selected='selected' <?php }?> >最高</option>
+								
+									</select>
+								</div>
+							</div>
+						
+
+
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_backup()">提交</button>
+							</div>
+						<!-- </form> -->
+					</div>
+			
+
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-page">
+						<!-- <form method="post" class="form-tips" action="" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="pageNum">后台每页记录数</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="pageNum" name="pageNum" size="50" placeholder="后台每页记录数" value="{:C('pageNum')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="w_pageNum">前台每页记录数</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="w_pageNum" name="w_pageNum" size="50" placeholder="后台每页记录数" value="{:C('w_pageNum')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+						
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_page()">提交</button>
+							</div>
+						<!-- </form> -->
+
+					</div>
+
+					<!-- 一块 -->
+
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-sms">
+					<!-- 	<form method="post" class="form-tips" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="worktime">工作时长<font color="red" style="font-size:10px;">[*每天工作时长/小时]</font></label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="worktime" name="worktime" size="50" placeholder="每天上班时长" value="{:C('worktime')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-button">
+								<button class="button" onclick="add_sms()">提交</button>
+							</div>
+						<!-- </form> -->
+
+					</div>
+
+					<!-- 一块 -->
+
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-weixin">
+						<!-- <form method="post" class="form-tips" action="" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="appid">appid</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="appid" name="appid" size="50" placeholder="填写高级调用功能的app id" value="{:C('appid')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="appsecret">appsecret</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="appsecret" name="appsecret" size="50" placeholder="填写高级调用功能的密钥" value="{:C('appsecret')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="token">token</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="token" name="token" size="50" placeholder="填写你设定的key" value="{:C('token')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="encodingaeskey">encodingaeskey</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="encodingaeskey" name="encodingaeskey" size="50" placeholder="填写加密用的EncodingAESKey" value="{:C('encodingaeskey')}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="url">生成URL</label>
+								</div>
+								<div class="field">
+									<input type="text" class="input" id="url" name="url" size="50" placeholder="" value="{:C('site_url')}/Home/Weixin/index/token/{:C('token')}"/>
+								</div>
+							</div>
+
+							<hr/>
+
+							<div class="form-group">
+								<div class="label">
+									<label>群发封面显示</label>
+								</div>
+								<div class="field">
+									<div class="button-group button-group-small radio">
+										<label class="button <?php if (C('is_pic') == 1) {?>active<?php }?>">
+											<input name="is_pic" value="1"  type="radio" <?php if (C('is_pic') == 1) {?>checked="checked"<?php }?>><span class="icon icon-check"></span> 开启</label>
+										<label class="button <?php if (C('is_pic') == 0) {?>active<?php }?>">
+											<input name="is_pic" value="0" type="radio" <?php if (C('is_pic') == 0) {?>checked="checked"<?php }?>><span class="icon icon-times"></span> 关闭</label>
+									</div>
+								</div>
+							</div>
+
+
+						
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_weixin()">提交</button>
+							</div>
+						<!-- </form> -->
+
+					</div>
+
+					<!-- 一块 -->
+					<div class="tab-panel" id="tab-prize">
+						<!-- <form method="post" class="form-tips" action="" > -->
+							
+							<div class="form-group">
+								<div class="label">
+									<label for="appid">开始时间</label>
+								</div>
+								<div class="field">
+									<input class="input" data-date="" data-date-format="dd MM yyyy" type="text" name="scene_start" id="form_dstime" placeholder="请选择开始时间" readonly  value="{:date('Y-m-d H:i',C('scene_start'))}" data-validate="required:请填写"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="label">
+									<label for="appsecret">结束时间</label>
+								</div>
+								<div class="field">
+									<input class="input" size="16" type="text" id="form_detime" readonly style="margin-left: -1px;" placeholder="请选择结束时间" name="scene_end" value="{:date('Y-m-d H:i',C('scene_end'))}" data-validate="required:请填写"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="appsecret">奖品场景</label>
+								</div>
+								<div class="field" id="scene_id">
+									<select name="sceneList" class="input" id="">
+					                   
+					                    <volist name="sceneList" id="vo">
+					                    <option value="{$vo.id}" <eq name="scene_id" value="$vo.id">selected</eq>>{$vo.scene_name}</option>
+					                    </volist>
+					                </select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="label">
+									<label for="appsecret">场景状态</label>
+								</div>
+								<div class="field">
+									<div class="button-group button-group-small radio">
+										<label class="button <?php if (C('is_scene') == 1) {?>active<?php }?>">
+											<input name="is_scene" value="1"  type="radio" <?php if (C('is_scene') == 1) {?>checked="checked"<?php }?>><span class="icon icon-check"></span> 开启</label>
+										<label class="button <?php if (C('is_scene') == 0) {?>active<?php }?>">
+											<input name="is_scene" value="0" type="radio" <?php if (C('is_scene') == 0) {?>checked="checked"<?php }?>><span class="icon icon-times"></span> 关闭</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-button">
+								<button class="button" type="buttom" onclick="add_prize()">提交</button>
+							</div>
+						<!-- </form> -->
+
+					</div>
+					<!-- 一块 -->
+				</div>
+			</div>
+			<include file="Public/footer" />  <!-- 包含底部部模版footer -->
+		</div>
+		<script type="text/javascript" src="{:JS_PATH}datetimepicker/bootstrap-datetimepicker.js"></script>
+		<script type="text/javascript" src="{:JS_PATH}datetimepicker/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{:JS_PATH}datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+		
+			
+
+		<script type="text/javascript">
+	    $(function () {
+
+      	$("#logo").wrap("<form id='upload'  method='post' enctype='multipart/form-data'></form>");
+
+      	$("#logo").change(function(){
+
+      	$('#upload').form('submit', {
+								
+					  type: 'POST',
+					  url: "{:U('Upload/index')}",
+					     onSubmit: function(param){
+					        param.Type   = 'logo/';   //图片存储路径
+					    },  
+					  
+					  success: function(data){
+							if(data.status==0){
+
+		      					layer.open({
+
+		      						content:data.info,
+
+		      						btn:['好的'],
+
+		      						yes:function(){
+
+		      							layer.closeAll()
+
+		      						}
+
+		      					})
+
+		      				}else{
+
+		      					$("#logo_img").attr('src',data);
+
+		      					$("input[name='site_logo']").val(data);
+
+		      					layer.closeAll()
+
+		      				}
+						}
+				});
+
+      	});
+
+    });
+
+	     $(function () {
+
+	    $("#watermark").wrap("<form id='upload_water'  method='post' enctype='multipart/form-data'></form>");
+
+      	$("#watermark").change(function(){
+
+      	$('#upload_water').form('submit', {
+								
+					  type: 'POST',
+					  url: "{:U('Upload/index')}",
+					     onSubmit: function(param){
+					        param.Type   = 'watermark/';   //图片存储路径
+					    },  
+					  
+					  success: function(data){
+							if(data.status==0){
+
+		      					layer.open({
+
+		      						content:data.info,
+
+		      						btn:['好的'],
+
+		      						yes:function(){
+
+		      							layer.closeAll()
+
+		      						}
+
+		      					})
+
+		      				}else{
+
+
+		                      
+		      					$("#watermark_img").attr('src',data);
+
+		      					$("input[name='site_watermark']").val(data);
+
+		      					layer.closeAll()
+
+		      				}
+						}
+				});
+
+      	});
+    });
+
+     $(function () {
+
+      	$("#qr").wrap("<form id='upload_qr'  method='post' enctype='multipart/form-data'></form>");
+
+      	$("#qr").change(function(){
+
+      	$('#upload_qr').form('submit', {
+								
+					  type: 'POST',
+					  url: "{:U('Upload/index')}",
+					     onSubmit: function(param){
+					        param.Type   = 'qr/';   //图片存储路径
+					    },  
+					  
+					  success: function(data){
+							if(data.status==0){
+
+		      					layer.open({
+
+		      						content:data.info,
+
+		      						btn:['好的'],
+
+		      						yes:function(){
+
+		      							layer.closeAll()
+
+		      						}
+
+		      					})
+
+		      				}else{
+
+		      					$("#qr_img").attr('src',data);
+
+		      					$("input[name='site_qr']").val(data);
+
+		      					layer.closeAll()
+
+		      				}
+						}
+				});
+
+      	});
+
+    }); 
+$('#form_dstime').datetimepicker({
+		        format: 'yyyy-mm-dd hh:ii',
+		        language:  'zh',
+		        weekStart: 1,
+		        todayBtn:  1,
+		        autoclose: 1,
+		        todayHighlight: 1,
+		        startView: 2,
+		        minView: 0,
+		        forceParse: 0
+		    });
+		    $('#form_detime').datetimepicker({
+		        format: 'yyyy-mm-dd hh:ii',
+		        language:  'zh',
+		        weekStart: 1,
+		        todayBtn:  1,
+		        autoclose: 1,
+		        todayHighlight: 1,
+		        startView: 2,
+		        minView: 0,
+		        forceParse: 0
+		    });
+		</script>	
+
+	</body>
+
+</html>

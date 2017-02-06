@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>理由</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="bg2">
+<div class="wrap">
+	<div class="set_reason_h"></div>
+	<!-- <form action="" method="post"> -->
+	<div class="reason_tips">壮士想走  ! ? -.- </div>
+	<div class="reason_text">
+		<textarea name=""  placeholder="请留下一个没有瑕疵的理由！" info="leave_reason"></textarea>
+	</div>
+	   <input type="hidden" value="{$classR}" info="classR" />
+	<div class="reason_btn" poster="info" action="__SELF__" >
+		<!-- <input class="submit_btn" type="bottom" /> -->
+		<span>提交</span>
+	</div>
+	<!-- </form> -->
+</div>
+<span class="logo"></span>
+</body>
+<script src="{:JS_PATH}jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}app.js?{$time}" type="text/javascript" charset="utf-8"></script>
+<script src="{:JS_PATH}common.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/Admin/js/lib/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+</html>

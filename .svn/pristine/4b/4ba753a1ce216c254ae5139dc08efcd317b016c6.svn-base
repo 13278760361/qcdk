@@ -1,0 +1,95 @@
+<include file="Public/header" />
+<!-- 包含头部模版header -->
+
+<div class="admin">
+	<form method="get">
+		<div class="panel admin-panel">
+			<div class="panel-head"><strong>中奖列表</strong><a style="margin-left:20px;color:#5d8;" href="{:U('Prize/index',array('pid'=>$_GET['pid'],'leve'=>'on'))}"><strong>返回</strong></a></div>
+			<div style="width:100%;" class="padding border-bottom form-inline">
+				<div style="float:left;" class="x16">
+					
+					<div class="clear"></div>
+				</div>
+				<div style="float:right;" class="x16">
+					<div class="form-group">
+						<div class="field">
+							<input type="text" class="input" id="keyword" name="keyword" size="20" placeholder="工号|姓名" value="{$keyword}">
+						</div>
+					</div>
+					<!-- 筛选 -->
+					<div class="form-group">
+						<div class="field">
+							<select class="input" name="departs" >
+								<option value="">部门</option>
+								  <volist name="departs" id="vo">
+									  <option value="{$key}" <if condition="$key eq $departss">selected</if> >{$vo}</option>
+								  </volist>
+							</select>
+						</div>
+						<div class="field" style="margin-left: 5px">
+						<select class="input" name="sex" >
+							<option value="">姓别</option>
+							<option value="1"  <if condition="1 eq $sex">selected</if> >男</option>
+							<option value="2"<if condition="2 eq $sex">selected</if> >女</option>
+							<option value="3" <if condition="3	 eq $sex">selected</if> >保密</option>
+						</select>
+					</div>
+					</div>
+					<!-- 筛选 -->
+					<div class="form-button">
+						<button class="button" type="submit" id="search">搜索</button>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<table class="table table-hover">
+
+				<tr>
+					<!-- <th width="20px">ID</th> -->
+					<th width="*">工号</th>
+					<th width="*">姓名</th>
+					<th width="*">姓别</th>
+					<th width="*">头像</th>
+					<th width="*">部门</th>
+					<th width="*">电话</th>
+					<th width="*">中奖金额</th>
+					<th width="*">中奖类型</th>
+					<th width="*">中奖时间</th>
+					
+				</tr>
+				<volist name="lists" id="vo">
+					<tr>
+						<!-- <td>
+							<input type="checkbox" name="id" value="{$vo.id}" />{$vo.id}
+						</td> -->
+						<td>{$vo.job_number}</td>
+						<td>{$vo.username}</td>
+						<td>
+							<if condition="$vo.sex eq 1">男
+								<elseif condition="$vo.sex eq 2"/>女
+								<else />保密
+							</if>
+						</td>
+						<td>
+							<img src="{$vo.headimgurl}" style="width: 40px" alt="">
+						</td>
+						<td>{$vo.depart_name}</td>
+						<td>{$vo.phone}</td>
+						<td>{$vo.money}</td>
+						<td>{$vo.type}</td>
+						<td>{$vo.time|date="Y-m-d H:i",###}</td>
+					</tr>
+				</volist>
+			</table>
+			<div class="panel-foot text-right" style="font-size:12px;">
+				{$page}
+			</div>
+		</div>
+	</form>
+	<br />
+	<include file="Public/footer" />
+	<!-- 包含底部部模版footer -->
+</div>
+</body>
+
+</html>

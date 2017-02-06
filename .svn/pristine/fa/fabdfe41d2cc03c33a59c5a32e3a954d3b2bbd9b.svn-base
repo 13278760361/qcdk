@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=2.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<title>签到提示</title>
+<link rel="stylesheet" href="{:CS_PATH}base.css?{$time}" />
+</head>
+<body class="sign_tips_bd">
+<div class="wrap">
+	<div class="sign_tips_booth">
+		<a href="#">
+			<img src="{:IM_PATH}sign_tip_ Bluetooth.png"/>
+			<span>打开手机蓝牙</span>
+		</a>
+	</div>
+	<div class="sign_tips_wx">
+		<a href="#">
+			<img src="{:IM_PATH}sign_tips_wx.png"/>
+			<span>打开微信摇一摇</span>
+		</a>
+	</div>
+	<div class="sign_tips_sign">
+		<a href="#">
+			<img src="{:IM_PATH}sign_tips_sign.png"/>
+			<span>签到</span>
+		</a>
+	</div>
+</div>
+<!--<span class="logo"></span>-->
+</body>
+</html>

@@ -1,0 +1,263 @@
+<link href="{:CS_PATH}pintuer.css" rel="stylesheet" type="text/css" />
+<link href="{:CS_PATH}fangcms.css" rel="stylesheet" type="text/css" />
+<script src="{:JS_PATH}jquery.min.js" type="text/javascript"></script>
+<script src="{:JS_PATH}pintuer.js" type="text/javascript"></script>
+<script src="{:JS_PATH}/lib/layer/layer.js" type="text/javascript"></script>
+<!-- 节点树加载项 -->
+ <link rel="stylesheet" href="{:CS_PATH}lib/ztree/demo.css" type="text/css">
+ <link rel="stylesheet" href="{:CS_PATH}lib/ztree/metroStyle/metroStyle.css" type="text/css">
+ <script type="text/javascript" src="{:JS_PATH}lib/ztree/jquery-1.4.4.min.js"></script>
+ <script type="text/javascript" src="{:JS_PATH}lib/ztree/jquery.ztree.core-3.5.js"></script>
+ <script type="text/javascript" src="{:JS_PATH}lib/ztree/jquery.ztree.excheck-3.5.js"></script>
+<!-- 节点树加载项 -->
+<SCRIPT type="text/javascript">
+        <!--
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            check: {
+                enable: true,
+                autoCheckTrigger: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                // beforeCheck: beforeCheck,
+                onCheck: onCheck
+            }
+        };
+        var zNodes ;
+        $(function(){
+                $.ajax({
+                async : false,
+                cache:false,
+                type: 'POST',
+                dataType : "json",
+                url: "{:U('Role/getNode')}",
+                error: function () {
+                alert('请求失败');
+                },
+                success:function(data){ 
+               
+                zNodes = data;
+               
+                }
+        });
+
+
+
+});
+
+
+        function onCheck(e, treeId, treeNode) {
+            
+
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            nodes = zTree.getCheckedNodes(true);
+
+            var rules=[];
+         
+            for (var i=0, l=nodes.length; i<l; i++) {
+                rules.push(nodes[i].id);
+            }
+            //alert(rules);
+            $("#rules").val(rules);
+           
+        }       
+
+        $(document).ready(function(){
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        });
+        //-->
+</SCRIPT>
+
+
+
+
+<div class="fangcms_box">
+	<form method="post">
+		<div class="form-group">
+			<div class="label">
+				<label for="title">
+					角色名称:</label>
+			</div>
+			<div class="field">
+				<input type="text" class="input" id="title" name="title" size="50" placeholder="角色名称" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="label">
+				<strong>状态</strong>
+			</div>
+			<div class="field">
+				<div class="button-group radio">
+					<label class="button active">
+						<input name="status" value="1" checked="checked" type="radio"><span class="icon icon-check text-green"></span> 启用
+					</label>
+					<label class="button">
+						<input name="status" value="0" type="radio"><span class="icon icon-times"></span> 禁用
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+					<div class="label">
+						<label for="title">
+							角色权限:</label>
+					</div>
+					<div class="content_wrap">
+				    <div class="zTreeDemoBackground left">
+				        <ul id="treeDemo" class="ztree"></ul>
+				    </div>
+				</div>
+				<input name="rules" id="rules" value="" type="hidden">
+		</div>
+
+		 
+
+		<div class="form-group">
+			<div class="label">
+				<label for="describe">
+					节点描述</label>
+			</div>
+			<div class="field">
+				<textarea class="input" rows="5" cols="50" placeholder="节点描述" name="describe"></textarea>
+			</div>
+		</div>
+
+	
+		<div class="form-button">
+			<button class="button" type="button" onclick="add()">
+				提交</button>
+		</div>
+	</form>
+</div>
+ <script>
+
+	  //创建节点
+
+		function add(){
+
+			
+
+			var title=$("input[name='title']");
+
+		   	var status = $("input[name='status']:checked");	
+
+		    var rules = $("input[name='rules']");
+
+		    var describe =$("textarea[name ='describe']");	
+
+
+
+
+
+			if(title.val()==''){
+
+				layer.tips('必填*', title);
+
+				title.focus();
+
+				return false
+
+			}
+
+
+
+			if (status.val()=='') {
+
+				layer.tips('必选*', status);
+
+				status.focus();
+
+				return false
+
+			}
+
+			if (rules.val()=='') {
+
+				layer.tips('必选*', rules);
+
+				rules.focus();
+
+				return false
+
+			}
+
+			if (describe.val()=='') {
+
+				layer.tips('必填*', describe);
+
+				describe.focus();
+
+				return false
+
+			}
+
+		
+
+
+            $('.button').attr("disabled","disabled");//防止重复提交
+
+
+			$.post("{:U('Role/add')}",{
+
+				title:title.val(),
+
+				status:status.val(),
+
+				rules:rules.val(),
+
+				describe:describe.val(),
+
+
+			},function(ret){
+
+				// alert(ret);
+
+				if(ret.status==1){
+					
+					 parent.layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 1,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					}, function(){
+						  parent.location.reload()
+					      parent.layer.closeAll()			
+
+					});   
+
+
+					
+					 
+
+				}else{
+
+					layer.msg(ret.info, {
+
+						offset: 200,
+
+						shift: 2,
+
+						time: 800 //2秒关闭（如果不配置，默认是3秒）
+
+					});
+
+				}
+
+			})			
+
+		}
+
+		</script>
+
